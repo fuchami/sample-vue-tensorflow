@@ -22,13 +22,16 @@
       <h2 class="section col-sm-1">predicting</h2>
       <input class="field element" v-model="valueToPredict" type="number" placeholder="Enter an integer number"><br>
       <div class="element">{{ predictedValue }}</div>
-      <button class="element button--green" v-on:clicl="predict" :disabled="!trained">predict</button>
+      <button class="element button--green" v-on:click="predict" :disabled="!trained">predict</button>
     </div>
 
   </div>
 </template>
 
 <script>
+import * as tf from '@tensorflow/tfjs';
+import { throws } from 'assert';
+
 export default {
   data () {
     return {
@@ -46,9 +49,26 @@ export default {
       this.yValues.push(0);
     },
     train () {
+      // Define a model for linear regression.
+      const model = this.model = tf.sequential();
+      model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+
+      // Prepare the model for training: Specify the loss and the optimizer.
+      model.compile({ loss: 'meanSquaredError', optimizer: 'sgd' });
+
+      const xs = tf.tensor2d(this.xValues, [this.xValues.length, 1]);
+      const ys = tf.tensor2d(this.yValues, [this.yValues.length, 1]);
+
+      // Train the model using the data.
+      model.fit(xs, ys, {epochs: 50} ).then(() => {
+        this.trained = true;
+        this.predictedValue = 'Ready for making predictions. ';
+      });
     },
     predict () {
-
+      // Use the model to do inference on a data point the model hasn't seen before:
+      console.log("predict")
+      this.predictedValue = this.model.predict(tf.tensor2d([this.valueToPredict], [1,1])).get(0,0);
     },
   }
 }
