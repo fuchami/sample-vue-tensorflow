@@ -5,29 +5,24 @@
       <h1 class="title">
         sample-vue-tensorflow
       </h1>
+
+      <tensorflow-example />
+
       <h2 class="subtitle">
         Nuxt.js project
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
     </div>
   </section>
 </template>
 
 <script>
 import AppLogo from '~/components/AppLogo.vue'
+import TensorflowExample from '~/components/TensorflowExample.vue'
 
 export default {
   components: {
-    AppLogo
+    AppLogo,
+    TensorflowExample
   }
 }
 </script>
@@ -45,7 +40,7 @@ export default {
   font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
   display: block;
   font-weight: 300;
-  font-size: 100px;
+  font-size: 70px;
   color: #35495e;
   letter-spacing: 1px;
 }
