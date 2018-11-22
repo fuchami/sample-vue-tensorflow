@@ -1,4 +1,11 @@
+const routerBase = process.env_USE_SUBFOLDER == 'true' ? {
+  router: {
+    base: '/sample-vue-tensorflow/'
+  }
+}: {}
+
 module.exports = {
+  ...routerBase,
   /*
   ** Headers of the page
   */
